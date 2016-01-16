@@ -4,7 +4,10 @@
 - Performs git clone
 - Changes the name of the project
 - Updates package.json
-- Deletes git files so you can start fresh.  
+- Deletes git files so you can start fresh.
+
+Orginal project can be found here:
+https://github.com/jamesrhaley/es2015-babel-gulp-jasmine
 
 ## Setup
 
