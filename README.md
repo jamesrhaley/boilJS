@@ -13,8 +13,9 @@ https://github.com/jamesrhaley/es2015-babel-gulp-jasmine
 
 add a symlink to your path.
 
+```
 ln -s (pathto)/boil_JS/boilJS (/usr/sample bin)/boilJS
-
+```
 
 requires simplejson
 
