@@ -3,14 +3,16 @@ import shutil
 import simplejson
 from collections import OrderedDict
 import os
+import sys
 
 
-
+# this is almost done but there is something wrong with the
+# updating of the package.json file
 
 # object to collect appropriate data and to then use it 
 class GitBoil(object):
-    @staticmethod
-    def _keywords(pack_keys):
+
+    def _keywords(self, pack_keys):
         if ',' in pack_keys:
             return pack_keys.split(',')
         else:
@@ -28,11 +30,11 @@ class GitBoil(object):
 
     # performs git clone into a new directory
     def clone_mkdir(self):
-        hole_path = self.url + ' ' + self.new_name
+        hole_path = self.git_url + ' ' + self.name
         call('git clone '+ hole_path, shell=True)
 
     def remove_git(self):
-        git_path = self.new_name + '/.git'
+        git_path = self.name + '/.git'
         shutil.rmtree(git_path)
 
     def git_calls(self):
@@ -79,7 +81,24 @@ class GitBoil(object):
         new_pack.write(outfile)
         new_pack.close()
 
+    def remove_licence(self):
+        license_path = self.name + '/LICENCE'
 
+        try:
+            os.remove(license_path)
 
+        except:
+            print('Something went wrong when removing the license! Can\'t tell what?')
+            sys.exit(0) # quit Python   
 
+    def add_blank_README(self):
+        readme_path = self.name + '/README.md'
+        # readme_path = 'new-JS' + '/README.md'
+        try:
+            os.remove(readme_path)
+            readme = open(readme_path,'w')
+            readme.close()
 
+        except:
+            print('Something went wrong when updating the readme! Can\'t tell what?')
+            sys.exit(0) # quit Python   
