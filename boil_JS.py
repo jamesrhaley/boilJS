@@ -4,12 +4,11 @@ import shutil
 import simplejson
 from collections import OrderedDict
 import os
+from GitBoil import Boil
 
 ### TODO
 # make README.md blank
 # update key words
-
-
 
 # https://github.com/jamesrhaley/es2015-babel-gulp-jasmine.git
 
@@ -21,10 +20,7 @@ if not os.path.isdir(new_name):
     # get all of the needed info to down load the file and update it
     url = raw_input("what github url should we clone: ")
 
-    hole_path = url + ' ' + new_name
-    # load git file
-    call('git clone '+ hole_path, shell=True)
-
+    Boil.git_clone(url, new_name)
 
     author = raw_input("new author: ")
     description = raw_input("new description: ")
@@ -32,30 +28,8 @@ if not os.path.isdir(new_name):
     licence = raw_input("licence?(MIT): ")
 
 
-    # # get the name of the git file
-    # file_name = ''
-    # for i,item in enumerate(url):
-    #     if url[-i] == '/':
-    #         file_name = url[i+1:].split('.')[0]
-    #         break
 
-
-    ######## ------ remove .git folder ------ ############
-    # create the path to the .git directory
-    git_path = new_name + '/.git'
-
-    # remove git files
-    shutil.rmtree(git_path)
-
-
-    ######## ------ edit package.json ------- ############
-    # test code!!!!!
-
-    # pack_path = 'package.json'
-    # new_name = 'ed'
-    # author = 'ted'
-    # description = 'haha'
-
+    ######## ------ edit package.json ------- ###########
     # package.json path
     pack_path = new_name + '/package.json'
 
@@ -89,20 +63,10 @@ if not os.path.isdir(new_name):
     new_pack.write(outfile)
     new_pack.close()
 
-    os.remove('README.md')
+    Boil.remove_licence(new_name)
 
-    try:
-        readme = open('README.md','r+')
-        readme.close()
+    Boil.clean_readme(new_name) 
 
-    except:
-        print('Something went wrong! Can\'t tell what?')
-        sys.exit(0) # quit Python   
-
-
-    ######## ------ transfer to new folder ------ ############
-    # move files to new folder
-    # shutil.move(file_name, new_name)
 else:
     string = '\nThat directory already exits!!\nPlease come up with a new name.\n'
     print(string)
