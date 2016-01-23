@@ -1,1 +1,2 @@
-from GitBoil import GitBoil
+# from GitBoil import GitBoil
+from InputMap import InputMap
